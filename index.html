@@ -1,0 +1,70 @@
+{% extends 'newsapp/base.html' %}
+
+{% block title %}Главная - МояКомпания{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Добро пожаловать в ОтмывДенег</h1>
+    <p>Мы создаём инновационные решения для бизнеса</p>
+</div>
+
+<div class="latest-news">
+    <h2>📰 Последние новости</h2>
+    <div class="news-grid">
+        {% for news_item in latest_news %}
+            <div class="news-card" onclick="location.href='{% url 'news_detail' news_item.id %}'">
+                <h3>{{ news_item.title }}</h3>
+                <p class="date">{{ news_item.published_date|date:"d.m.Y" }} | {{ news_item.author.username }}</p>
+                <p>{{ news_item.content|truncatewords:20 }}</p>
+            </div>
+        {% empty %}
+            <p>Пока нет новостей.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 60px 40px;
+        border-radius: 20px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    .latest-news h2 {
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .news-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .news-card h3 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+    .date {
+        color: #7f8c8d;
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}

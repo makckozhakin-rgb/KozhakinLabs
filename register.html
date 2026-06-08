@@ -1,0 +1,12 @@
+{% extends 'newsapp/base.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+<div style="max-width:500px;margin:50px auto;background:white;padding:30px;border-radius:20px;">
+    <h2>Регистрация</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</div>
+{% endblock %}

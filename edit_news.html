@@ -1,0 +1,14 @@
+{% extends 'newsapp/base.html' %}
+
+{% block title %}Редактировать новость{% endblock %}
+
+{% block content %}
+<div style="max-width:800px;margin:0 auto;background:white;padding:30px;border-radius:20px;">
+    <h2>✏️ Редактировать: {{ news.title }}</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="background:#3498db;color:white;padding:12px 24px;border:none;border-radius:8px;cursor:pointer;margin-top:10px;">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

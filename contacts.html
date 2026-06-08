@@ -1,0 +1,53 @@
+{% extends 'newsapp/base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<div class="contacts">
+    <h1>📞 Контакты</h1>
+    
+    <div class="info">
+        <h2>ООО "ОтмывДенег"</h2>
+        <p><strong>ООО "ОтмывДенег"</strong></p>
+        <p><strong>📍 Адрес:</strong> г. Псков, ул. Рижский проспект, д. 999</p>
+        <p><strong>📱 Телефон:</strong> +7 (800) 555-35-35</p>
+        <p><strong>✉️ Email:</strong> info@otmivdeneg.ru</p>
+    </div>
+    
+    <div class="about">
+        <h2>О компании</h2>
+        <p>Мы — команда профессионалов, занимающаяся разработкой веб-сайтов, мобильных приложений и IT-консалтингом с 2018 года. Наша миссия — помогать бизнесу расти с помощью современных технологий.</p>
+    </div>
+</div>
+
+<style>
+    .contacts {
+        background: white;
+        padding: 30px;
+        border-radius: 20px;
+    }
+    .contacts h1 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+    .info, .about {
+        margin-bottom: 30px;
+    }
+    .info h2, .about h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f39c12;
+        display: inline-block;
+    }
+    .info p {
+        margin: 10px 0;
+        font-size: 1.1rem;
+    }
+    .about p {
+        line-height: 1.6;
+        font-size: 1.05rem;
+        color: #34495e;
+    }
+</style>
+{% endblock %}

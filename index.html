@@ -2,25 +2,122 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Посты и пользователи</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    .post-card {
+      border: 1px solid #ccc; margin: 10px; padding: 10px; border-radius: 8px;
+    }
+    #user-list { list-style: none; padding: 0; }
+    #user-list li { cursor: pointer; padding: 5px; }
+    #user-list li:hover { background: #f0f0f0; }
+  </style>
 </head>
 <body>
   <div id="app">
+    <h2>Все посты</h2>
     <div id="all-posts"></div>
     <hr>
     <div style="display: flex; gap: 20px;">
-      <ul id="user-list"></ul>
-      <div id="user-posts"></div>
+      <div>
+        <h3>Пользователи</h3>
+        <ul id="user-list"></ul>
+      </div>
+      <div id="user-posts" style="flex:1;"></div>
     </div>
   </div>
 
   <script>
-    // JSON-данные пользователей и постов прямо здесь
-    const users = [ ... ]; // скопируйте массив из вашего вопроса
-    const posts = [ ... ]; // скопируйте массив из вашего вопроса
+    // Вставьте сюда полные массивы users и posts из вашего исходного вопроса (все 10 пользователей и 100 постов)
+    const users = [
+      {
+        "id": 1,
+        "name": "Leanne Graham",
+        "username": "Bret",
+        "email": "Sincere@april.biz",
+        "address": {
+          "street": "Kulas Light",
+          "suite": "Apt. 556",
+          "city": "Gwenborough",
+          "zipcode": "92998-3874",
+          "geo": { "lat": "-37.3159", "lng": "81.1496" }
+        },
+        "phone": "1-770-736-8031 x56442",
+        "website": "hildegard.org",
+        "company": {
+          "name": "Romaguera-Crona",
+          "catchPhrase": "Multi-layered client-server neural-net",
+          "bs": "harness real-time e-markets"
+        }
+      },
+      // ... остальные 9 объектов пользователей ...
+    ];
 
-    // ... весь JavaScript-код из предыдущего ответа (функции getUserName, createPostCard и т.д.)
-    // Не забудьте вызовы renderAllPosts() и renderUserList() в конце
+    const posts = [
+      {
+        "userId": 1,
+        "id": 1,
+        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+      },
+      // ... остальные 99 объектов постов ...
+    ];
+
+    // Проверка, что данные загружены (для отладки)
+    console.log('Users:', users.length, 'Posts:', posts.length);
+
+    function getUserName(userId) {
+      const user = users.find(u => u.id === userId);
+      return user ? user.name : 'Неизвестный автор';
+    }
+
+    function createPostCard(post, authorName) {
+      return `
+        <div class="post-card">
+          <h3>${authorName}</h3>
+          <h4>${post.title}</h4>
+          <p>${post.body.replace(/\n/g, '<br>')}</p>
+        </div>
+      `;
+    }
+
+    // Все посты
+    function renderAllPosts() {
+      const container = document.getElementById('all-posts');
+      container.innerHTML = posts.map(post => 
+        createPostCard(post, getUserName(post.userId))
+      ).join('');
+    }
+
+    // Список пользователей
+    function renderUserList() {
+      const userList = document.getElementById('user-list');
+      userList.innerHTML = users.map(user => 
+        `<li data-user-id="${user.id}">${user.name} (@${user.username})</li>`
+      ).join('');
+
+      userList.addEventListener('click', (e) => {
+        const li = e.target.closest('li');
+        if (!li) return;
+        const userId = Number(li.dataset.userId);
+        showUserPosts(userId);
+      });
+    }
+
+    function showUserPosts(userId) {
+      const userPosts = posts.filter(post => post.userId === userId);
+      const author = getUserName(userId);
+      const container = document.getElementById('user-posts');
+      if (userPosts.length === 0) {
+        container.innerHTML = '<p>Нет постов.</p>';
+        return;
+      }
+      container.innerHTML = `<h2>Посты ${author}</h2>` + userPosts.map(post => createPostCard(post, author)).join('');
+    }
+
+    renderAllPosts();
+    renderUserList();
   </script>
 </body>
 </html>
